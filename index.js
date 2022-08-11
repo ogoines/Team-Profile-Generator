@@ -12,39 +12,21 @@ const makeTeam = () => inquirer.prompt([
       message: "What is the employee's job position?",
       choices: ["Engineer", "Intern", "Manager"]
     },
-    {
-      name: "name",
-      type: "input",  
-      message: "Please enter an employee's name"
-    },
-    {
-      name: "id" ,
-      type: "input",
-      message: "Please enter the employees id:"  
-    },
-    {
-      name: "email",   
-      type: "input",
-      message: "What is the employee's email address?"
-    }
-])   
+   
+])  
 .then(function (entry) {
      switch(entry.role) {
         case "Engineer":
-         
-         // addEngineer(entry, team);
-          console.log(makeTeam);
+          addEngineer();
         break;    
      }
-     switch(entry.role){
+     switch(entry.role) {
         case "Intern":
-          questionIntern();
           addIntern();
         break;
      }
-     switch(entry.role){
+     switch(entry.role) {
         case "Manager":
-          questionManager();
           addManager();
         break;
      }
@@ -52,55 +34,114 @@ const makeTeam = () => inquirer.prompt([
 
 
 
-const questionEngineer = () => inquirer.prompt([
-   { 
-    name: "github",   
-    type: "input",
-    message: "Please enter the employee's GitHub username."
-   }
-])
-.then(function (data) {
-})
 
 
-const questionIntern = () => inquirer.prompt([
+
+
+
+function addEngineer() {
+   inquirer.prompt([
+    {
+      name: "name",
+      type: "input",  
+      message: "Please enter an Engineer's name:"
+   },
    {
-    name: "schoolname",   
-    type: "input",
-    message: "Please enter the employee's school name."
-   }
-])   
-
-const questionManager = () => inquirer.prompt([
+      name: "id" ,
+      type: "input",
+      message: "What is the Engineer's id?"  
+   },
    {
-    name: "officenumber",   
-    type: "input",
-    message: "Please enter the emplyees's office number"
-   }
-])   
+      name: "email",   
+      type: "input",
+      message: "Please enter the Engineer's email address:"
+   }, 
+   {
+      name: "github",
+      type: "input",
+      message: "What is the Engineer's GitHub username?"
+   },
 
-
-
-
-
-function addEngineer(entry, teamArray)
-{
-  questionEngineer();
-  const engineer = new Engineer(entry.name, entry.id, entry.email, entry.github);
-  teamArray.push(engineer);
-  console.log("Trying to addEngineer function")
-
+  ]) .then(entry=> {
+      const engineer = new Engineer(entry.name, entry.id, entry.email, entry.github);
+          team.push(engineer);
+          console.log(team);
+          console.log("Trying to addEngineer function")
+          
+      });
 }
 
 
 function addIntern(){
-   console.log("Trying to add Intern function")
-}
-
-function addManager(){
-   console.log("Trying to add Manager")
+   inquirer.prompt([
+      {
+        name: "name",
+        type: "input",  
+        message: "Please enter an Intern's name:"
+     },
+     {
+        name: "id" ,
+        type: "input",
+        message: "What is the Intern's id?"  
+     },
+     {
+        name: "email",   
+        type: "input",
+        message: "Please enter the Intern's email address:"
+     }, 
+     {
+        name: "schoolname",
+        type: "input",
+        message: "What is the Intern's school name?"
+     },
+  
+    ]) .then(entry=> {
+        const intern = new Intern(entry.name, entry.id, entry.email, entry.schoolname);
+            team.push(intern);
+            console.log(team);
+            console.log("Trying to addIntern function")
+            
+        });
+  }
    
-}
+
+  function addManager(){
+   inquirer.prompt([
+      {
+        name: "name",
+        type: "input",  
+        message: "Please enter a Manager's name:"
+     },
+     {
+        name: "id" ,
+        type: "input",
+        message: "What is the Manager's id?"  
+     },
+     {
+        name: "email",   
+        type: "input",
+        message: "Please enter the Manager's email address:"
+     }, 
+     {
+        name: "officenumber",
+        type: "input",
+        message: "What is the Manager's office number ?"
+     },
+  
+    ]) .then(entry=> {
+        const manager = new Intern(entry.name, entry.id, entry.email, entry.officenumber);
+            team.push(manager);
+            console.log(team);
+            console.log("Trying to addManager function")
+            
+        });
+  }
+   
+   
+   
+   
+   
+   
 makeTeam()  
     
     
