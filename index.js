@@ -3,60 +3,112 @@ const fs = require("fs");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const Manager = require("./lib/Manager.js");
-
-const team= [];
+const team = [];
 
 const makeTeam = () => inquirer.prompt([
     {
-     name: "role",   
-     type: "list",
-     message: "What is the employee's job position?",
-     choices: ["Engineer", "Intern", "Manager"]
+      name: "role",   
+      type: "list",
+      message: "What is the employee's job position?",
+      choices: ["Engineer", "Intern", "Manager"]
+    },
+    {
+      name: "name",
+      type: "input",  
+      message: "Please enter an employee's name"
+    },
+    {
+      name: "id" ,
+      type: "input",
+      message: "Please enter the employees id:"  
+    },
+    {
+      name: "email",   
+      type: "input",
+      message: "What is the employee's email address?"
     }
 ])   
-.then(function (choice) {
-     switch(choice.role) {
+.then(function (entry) {
+     switch(entry.role) {
         case "Engineer":
-        addEngineer();
+         
+         // addEngineer(entry, team);
+          console.log(makeTeam);
         break;    
      }
-     switch(choice.role){
+     switch(entry.role){
         case "Intern":
-        addIntern();
+          questionIntern();
+          addIntern();
         break;
      }
-     switch(choice.role){
+     switch(entry.role){
         case "Manager":
-        addManager();
+          questionManager();
+          addManager();
         break;
      }
 })     
 
 
 
-    
+const questionEngineer = () => inquirer.prompt([
+   { 
+    name: "github",   
+    type: "input",
+    message: "Please enter the employee's GitHub username."
+   }
+])
+.then(function (data) {
+})
+
+
+const questionIntern = () => inquirer.prompt([
+   {
+    name: "schoolname",   
+    type: "input",
+    message: "Please enter the employee's school name."
+   }
+])   
+
+const questionManager = () => inquirer.prompt([
+   {
+    name: "officenumber",   
+    type: "input",
+    message: "Please enter the emplyees's office number"
+   }
+])   
+
+
+
+
+
+function addEngineer(entry, teamArray)
+{
+  questionEngineer();
+  const engineer = new Engineer(entry.name, entry.id, entry.email, entry.github);
+  teamArray.push(engineer);
+  console.log("Trying to addEngineer function")
+
+}
+
+
+function addIntern(){
+   console.log("Trying to add Intern function")
+}
+
+function addManager(){
+   console.log("Trying to add Manager")
+   
+}
 makeTeam()  
     
     
     
     
     
-  //  {
-  //   name: "name",
-  //   type: "input",  
- //    message: "Please enter an employee's name"
- //   },
- //   {
-  //   name: "id" ,
-  //   type: "input",
-  //   message: "Please enter the employees id:"  
-  //  },
-  //  {
-  ///   name: "email",   
-   //  type: "input",
-   //  message: "What is the employee's email address?"
-  //  },
-    
+   
+   
     
     
  //   {
@@ -85,7 +137,7 @@ makeTeam()
 
   
 
-//makeTeam()
+
 
 //.then(() => console.log('Successful html write'))
 
