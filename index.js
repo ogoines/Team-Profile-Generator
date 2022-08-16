@@ -6,7 +6,29 @@ const Manager = require("./lib/Manager.js");
 //const { isTypedArray } = require("util/types");
 const team = [];
 
-const makeTeam = () => inquirer.prompt([
+function moreQuestions (){  
+   inquirer.prompt([
+    {
+      type: "list",
+      message: "Do you wish to add another employee?",
+      choices: [ "yes", "no"],
+      name: "moreEmployees"
+    }
+ ])  
+ .then(function({moreEmployees}) {
+    if (moreEmployees === "yes") {
+       
+       addEmployee();
+    } else {
+       console.log(err) 
+    }
+ 
+ })
+ }  
+ 
+
+
+const addEmployee = () => inquirer.prompt([
    {
       name: "name",
       type: "input",  
@@ -29,25 +51,29 @@ const makeTeam = () => inquirer.prompt([
       message: "Please enter the employees's email address:"
    } 
 ])  
-.then(function ({role, name, id, email} ) {
-      
-   switch(role) {
-      case "Engineer":
-          inquirer.prompt([
+.then(function ({role, name, id, email}) {
+  // let employee = {}; 
+  //console.log(schoolname);
+  
+ if (role ==="Engineer") {
+         inquirer.prompt([
            {
              name: "github",
              type: "input",
              message: "Please enter Github user name:"
            }
-           ])
+         ])
          .then (function({github}){
-             const engineer = new Engineer(name, id, email, github);
-             team.push(engineer);
+         
+             employee = new Engineer(name, id, email, github);
+             team.push(employee);
              console.log(team);
-             console.log("Trying to use Engineer function")
-          })   
-     break; 
-     case "Intern":
+             console.log("Trying to use Engineer function");
+             moreQuestions();
+            // console.log(employee);
+         })   
+      }
+   else if  (role ==="Intern") {
           inquirer.prompt([
            {
              name: "schoolname",
@@ -56,69 +82,58 @@ const makeTeam = () => inquirer.prompt([
            }
           ])
          .then (function({schoolname}){
-             const intern = new Intern(name, id, email, schoolname);
-             team.push(intern);
+             const employee  = new Intern(name, id, email, schoolname);
+             team.push(employee);
              console.log(team);
              console.log("Trying to use Intern function")
+             moreQuestions();
           })   
-     break; 
-     case "Manager":
-      inquirer.prompt([
-      {
-        name: "officenumber",
-        type: "input",
-        message: "Please enter employee's office number:"
-      }
-      ])
+      } 
+     else {
+          inquirer.prompt([
+          {
+            name: "officenumber",
+            type: "input",
+            message: "Please enter employee's office number:"
+          }
+         ])
         .then (function({officenumber}){
-            const manager = new Intern(name, id, email, officenumber);
-            team.push(manager);
+            const employee = new Intern(name, id, email, officenumber);
+            team.push(employee);
             console.log(team);
-            console.log("Trying to use Manager function")
+            console.log("Trying to use Manager function");
+            moreQuestions();
         })   
-      break;
-
-
-   }
-
-
-}) 
-   //  switch(role) {
-     //   case "Intern":
-     //     addIntern();
-     //   break;
-    // }
-   //  switch(role) {
-   //     case "Manager":
-    //      addManager();
-    //    break;
-   //  }
- 
-
-
-
-
-
-
-
+      
+      }
      
      
-     //addEmployee();    
+     
+//////////////////////
+ })      
+addEmployee();
 
 
 
 
-function addEngineer() {
-          const engineer = new Engineer(entry.name, entry.id, entry.email, entry.github);
-          team.push(engineer);
-          console.log(team);
-          console.log("Trying to addEngineer function")
-          
-
-}
 
 
+
+  
+  
+  
+  
+  
    
-makeTeam()  
+ 
+     
+     
+     
+
+
+
+
+
+    
     
     
