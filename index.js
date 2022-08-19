@@ -10,7 +10,7 @@ const  moreQuestions = () => inquirer.prompt([
     {
       type: "list",
       message: "Do you wish to add another employee?",
-      choices: [ "yes", "no"],
+      choices: ["yes", "no"],
       name: "moreEmployees"
     }
  ])  
@@ -146,20 +146,53 @@ const html =
        console.log(err);
      }
   });
+  
+  const name = "Orsha";
+  const id = "8040";
+  const email = "orshaGoines@gmail.com";
+  const gitHub = "Orunnergit";
 
+  const engineerhtml = `<div class="col-6">
+  <div class="card mx-auto mb-3" style="width: 18rem">
+  <h5 class="card-header">${name}<br /><br />Engineer</h5>
+  <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${id}</li>
+      <li class="list-group-item">Email Address: ${email}</li>
+      <li class="list-group-item">GitHub: ${gitHub}</li>
+  </ul>
+  </div>
+</div>`;
+   
+    fs.appendFile("teamOrsha.html", engineerhtml, function(err) {
+       if (err) {
+         console.log(err);
+       }
+    });
 
 function addcardHtml(team) {
    
-   team.forEach(function (member) {
+   //team.forEach(function (member) {
     
-    const name = member.getName();
-    const id = member.getId();
-    const email = member.getEmail();
-    const role = member.getRole();
-    let data = "";
+   //const name = member.getName();
+   // const id = member.getId();
+   // const email = member.getEmail();
+   // const role = member.getRole();
    
-    if (role === "Engineer") {
-        const gitHub = member.getGithub();
+   
+   const name ="testname";
+   const id = "testid";
+   const email = "testemail";
+   const role = "Engineer";
+   const gitHub = "testgithub";
+   const officePhone = "officPhone";
+   let data = "testing let data =";
+   let i = 0; 
+   
+   while(i <team.length){
+ 
+
+   if (role === "Engineer") {
+        //const gitHub = member.getGithub();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
         <h5 class="card-header">${name}<br /><br />Engineer</h5>
@@ -171,7 +204,7 @@ function addcardHtml(team) {
         </div>
     </div>`;
     } else if (role === "Intern") {
-        const school = member.getSchool();
+      //  const school = member.getSchool();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
         <h5 class="card-header">${name}<br /><br />Intern</h5>
@@ -183,7 +216,7 @@ function addcardHtml(team) {
         </div>
     </div>`;
     } else {
-        const officePhone = member.getOfficeNumber();
+       // const officePhone = member.getOfficeNumber();
         data = `<div class="col-6">
         <div class="card mx-auto mb-3" style="width: 18rem">
         <h5 class="card-header">${name}<br /><br />Manager</h5>
@@ -195,9 +228,23 @@ function addcardHtml(team) {
         </div>
     </div>`
     }
- });
+   
+    fs.writeFile("teamOrsha.html", data, function(err) {
+     
+      if (err) {
+        console.log(err);
+      }
+      else {
+        console.log(writefailed);
+      }
+   }) 
+} // while loop
+
+
 }
-addcardHtml(team)
+
+addcardHtml(team);
+
 
 
 
