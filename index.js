@@ -62,6 +62,8 @@ const addEmployee = () => inquirer.prompt([
          
              const employee = new Engineer(name, id, email, github);
              team.push(employee);
+             engineerHtml(name, id, email, github);
+
              console.log(team);
              console.log("Trying to use Engineer function");
              moreQuestions();
@@ -79,6 +81,7 @@ const addEmployee = () => inquirer.prompt([
          .then (function({schoolname}){
              const employee  = new Intern(name, id, email, schoolname);
              team.push(employee);
+             internHtml(name,id,email,schoolname);
              console.log(team);
              console.log("Trying to use Intern function")
              
@@ -96,6 +99,7 @@ const addEmployee = () => inquirer.prompt([
         .then (function({officenumber}){
              const employee = new Manager (name, id, email, officenumber);
              team.push(employee);
+             managerHtml(name, id, email, officenumber);
              console.log(team);
              console.log("Trying to use Manager function");
              moreQuestions();
@@ -153,7 +157,7 @@ const html =
   const email = "orunner@gmail.com";
   const gitHub = "Orunnergit";
   const school = "BS";
-  const officenumber = "5555555";
+ // const officenumber = "5555555";
   
   function engineerHtml(name, id, email, gitHub){  
     let engineerData = `<div class="col-6">
@@ -173,7 +177,7 @@ const html =
        }
    });
   }
-  engineerHtml(name, id, email, gitHub);
+  //engineerHtml(name, id, email, gitHub);
 
 
 function internHtml(name, id, email, school){  
@@ -194,12 +198,12 @@ function internHtml(name, id, email, school){
      }
     });
 }
-internHtml(name,id,email,school);
+//internHtml(name,id,email,school);
 
 function managerHtml(name, id, email, officenumber){  
      let managerData =`<div class="col-6">
        <div class="card mx-auto mb-3" style="width: 18rem">
-       <h5 class="card-header">${name}<br /><br />Intern</h5>
+       <h5 class="card-header">${name}<br /><br />Manager</h5>
          <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${id}</li>
             <li class="list-group-item">Email Address: ${email}</li>
@@ -208,13 +212,13 @@ function managerHtml(name, id, email, officenumber){
        </div>
      </div>`;
 
-    fs.appendFile("teamOrsha.html", managerData, function(err) {
+     fs.appendFile("teamOrsha.html", managerData, function(err) {
        if (err) {
        console.log(err);
        }
       });
 }
-managerHtml(name, id, email, officenumber);
+//managerHtml(name, id, email, officenumber);
 
 function addcardHtml(team) {
    
