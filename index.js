@@ -81,6 +81,7 @@ const addEmployee = () => inquirer.prompt([
              team.push(employee);
              console.log(team);
              console.log("Trying to use Intern function")
+             
              moreQuestions();
           })   
       } 
@@ -148,26 +149,72 @@ const html =
   });
   
   const name = "Orsha";
-  const id = "8040";
-  const email = "orshaGoines@gmail.com";
+  const id = "5111";
+  const email = "orunner@gmail.com";
   const gitHub = "Orunnergit";
-
-  const engineerhtml = `<div class="col-6">
-  <div class="card mx-auto mb-3" style="width: 18rem">
-  <h5 class="card-header">${name}<br /><br />Engineer</h5>
-  <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: ${id}</li>
-      <li class="list-group-item">Email Address: ${email}</li>
-      <li class="list-group-item">GitHub: ${gitHub}</li>
-  </ul>
-  </div>
-</div>`;
-   
-    fs.appendFile("teamOrsha.html", engineerhtml, function(err) {
+  const school = "BS";
+  const officenumber = "5555555";
+  
+  function engineerHtml(name, id, email, gitHub){  
+    let engineerData = `<div class="col-6">
+    <div class="card mx-auto mb-3" style="width: 18rem">
+    <h5 class="card-header">${name}<br /><br />Engineer</h5>
+      <ul class="list-group list-group-flush">
+         <li class="list-group-item">ID: ${id}</li>
+         <li class="list-group-item">Email Address: ${email}</li>
+         <li class="list-group-item">GitHub: ${gitHub}</li>
+      </ul>
+     </div>
+    </div>`;
+  
+  fs.appendFile("teamOrsha.html", engineerData, function(err) {
        if (err) {
          console.log(err);
        }
+   });
+  }
+  engineerHtml(name, id, email, gitHub);
+
+
+function internHtml(name, id, email, school){  
+    let internData =`<div class="col-6">
+      <div class="card mx-auto mb-3" style="width: 18rem">
+      <h5 class="card-header">${name}<br /><br />Intern</h5>
+        <ul class="list-group list-group-flush">
+           <li class="list-group-item">ID: ${id}</li>
+           <li class="list-group-item">Email Address: ${email}</li>
+           <li class="list-group-item">School: ${school}</li>
+        </ul>
+      </div>
+    </div>`;
+
+    fs.appendFile("teamOrsha.html", internData, function(err) {
+      if (err) {
+      console.log(err);
+     }
     });
+}
+internHtml(name,id,email,school);
+
+function managerHtml(name, id, email, officenumber){  
+     let managerData =`<div class="col-6">
+       <div class="card mx-auto mb-3" style="width: 18rem">
+       <h5 class="card-header">${name}<br /><br />Intern</h5>
+         <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${id}</li>
+            <li class="list-group-item">Email Address: ${email}</li>
+            <li class="list-group-item">Office Number: ${officenumber}</li>
+         </ul>
+       </div>
+     </div>`;
+
+    fs.appendFile("teamOrsha.html", managerData, function(err) {
+       if (err) {
+       console.log(err);
+       }
+      });
+}
+managerHtml(name, id, email, officenumber);
 
 function addcardHtml(team) {
    
@@ -179,12 +226,7 @@ function addcardHtml(team) {
    // const role = member.getRole();
    
    
-   const name ="testname";
-   const id = "testid";
-   const email = "testemail";
-   const role = "Engineer";
-   const gitHub = "testgithub";
-   const officePhone = "officPhone";
+  
    let data = "testing let data =";
    let i = 0; 
    
@@ -229,21 +271,21 @@ function addcardHtml(team) {
     </div>`
     }
    
-    fs.writeFile("teamOrsha.html", data, function(err) {
+   // fs.writeFile("teamOrsha.html", data, function(err) {
      
-      if (err) {
-        console.log(err);
-      }
-      else {
-        console.log(writefailed);
-      }
-   }) 
+    //  if (err) {
+    //    console.log(err);
+    //  }
+   //   else {
+   //     console.log(writefailed);
+   //   }
+  // }) 
 } // while loop
 
 
 }
 
-addcardHtml(team);
+//addcardHtml(team);
 
 
 
