@@ -153,7 +153,7 @@ bodyHtml();
 
    function engineerHtml(name, id, email, gitHub) {  
       let engineerData = 
-      `<div class="card bg-dark justify-content-center align-items-center" style="width: 14rem;">
+      `<div class="card bg-dark justify-content-center align-items-center">
          <div class="col card-header">
            <h4>${name}</h4>
        </div>
@@ -177,7 +177,7 @@ bodyHtml();
 
 function internHtml(name, id, email, school) {  
     let internData =
-    `<div class="card bg-dark justify-content-center align-items-center" style="width: 14rem;">
+    `<div class="card bg-dark justify-content-center align-items-center">
        <div class="col card-header">
          <h4>${name}</h4>
        </div>
@@ -200,7 +200,7 @@ function internHtml(name, id, email, school) {
 
 function managerHtml(name, id, email, officenumber) {  
      let managerData =
-     `<div class="card bg-dark justify-content-center align-items-center" style="width: 14rem;">
+     `<div class="card bg-dark justify-content-center align-items-center">
          <div class="col card-header">
            <h4>${name}</h4>
        </div>
@@ -210,7 +210,7 @@ function managerHtml(name, id, email, officenumber) {
        <ul class="list-group list-group-flush text">
            <li class="list-group-item">ID: ${id}</li>
            <li class="list-group-item">Email: ${email}</li>
-           <li class="list-group-item">Office Number: ${officenumber}</li>
+           <li class="list-group-item">Office #: ${officenumber}</li>
        </ul>
        </div>`;  
 
