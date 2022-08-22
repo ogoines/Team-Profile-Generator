@@ -9,7 +9,7 @@ const team = [];
 const  moreQuestions = () => inquirer.prompt([
     {
       type: "list",
-      message: "Do you wish to add another employee?",
+      message: "Do you wish to add employee?",
       choices: ["yes", "no"],
       name: "moreEmployees"
     }
@@ -17,15 +17,13 @@ const  moreQuestions = () => inquirer.prompt([
  .then(function({moreEmployees}) {
     if (moreEmployees === "yes") {
        
-       addEmployee();
+       buildTeam();
     } else {
-       // console.log(err) 
        return;
     }
- 
  })
   
-const addEmployee = () => inquirer.prompt([
+const buildTeam = () => inquirer.prompt([
    {
       name: "name",
       type: "input",  
@@ -50,7 +48,7 @@ const addEmployee = () => inquirer.prompt([
 ])  
 .then(function ({role, name, id, email}) {
  
- if (role ==="Engineer") {
+ if (role === "Engineer") {
          inquirer.prompt([
            {
              name: "github",
@@ -58,19 +56,16 @@ const addEmployee = () => inquirer.prompt([
              message: "Please enter Github user name:"
            }
          ])
-         .then (function({github}){
+         .then (function({github}) {
          
              const employee = new Engineer(name, id, email, github);
              team.push(employee);
              engineerHtml(name, id, email, github);
-
-             console.log(team);
-             console.log("Trying to use Engineer function");
              moreQuestions();
-            // console.log(employee);
+           
          })   
       }
-   else if  (role ==="Intern") {
+   else if  (role === "Intern") {
           inquirer.prompt([
            {
              name: "schoolname",
@@ -78,13 +73,10 @@ const addEmployee = () => inquirer.prompt([
              message: "Please enter employee's school name:"
            }
           ])
-         .then (function({schoolname}){
+         .then (function({schoolname}) {
              const employee  = new Intern(name, id, email, schoolname);
              team.push(employee);
              internHtml(name,id,email,schoolname);
-             console.log(team);
-             console.log("Trying to use Intern function")
-             
              moreQuestions();
           })   
       } 
@@ -96,21 +88,18 @@ const addEmployee = () => inquirer.prompt([
              message: "Please enter employee's office number:"
           }
          ])
-        .then (function({officenumber}){
+        .then (function({officenumber}) {
              const employee = new Manager (name, id, email, officenumber);
              team.push(employee);
              managerHtml(name, id, email, officenumber);
-             console.log(team);
-             console.log("Trying to use Manager function");
              moreQuestions();
         })   
       
       }
-  //////////////////////
- })      
-addEmployee();
+})      
 
-const html =
+function headerHtml(){
+ const headerData =
 `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -118,178 +107,135 @@ const html =
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <link rel="stylesheet" href="dist/style.css">
      <title>Team Profile Generator</title>
-  
-     <style>
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 20px;
-        margin-bottom: 20px;}
-    
-      .card {
-        padding: 20px;
-        border-radius: 6px;
-        background-color: white;
-        color: powderblue;
-        margin: 20px;}
-    
-      .text {
-        padding: 20px;
-        border-radius: 6px;
-        background-color: white;
-        color: black;
-        margin: 20px;}
-      .col {
-        flex: 1;
-        text-align: center;}
-     </style>`;
+   </head>`;
  
-  fs.writeFile("teamOrsha.html", html, function(err) {
+  fs.writeFile("index.html", headerData, function(err) {
      if (err) {
+      
        console.log(err);
      }
   });
+}
+headerHtml(); 
+
+function bodyHtml(){
+   let teamData = `<body>
+   <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
+       <span class="navbar-brand mb-0 h1"><h1>My Team</h1></span>
+   </nav>
+   <div class="row">`;
+
+   fs.appendFile("index.html", teamData, function(err) {
+      if (err) {
+        console.log(err);
+      }
+   });
+   
+   buildTeam();
+   
+   let endData = 
+     `</div>
+    </body>
+   </html>`;
+
+   fs.appendFile("index.html", endData, function(err) {
+      if (err) {
+        console.log(err);
+      }
+   });
+
+}
+bodyHtml();
+
+
+
+   function engineerHtml(name, id, email, gitHub) {  
+      let engineerData = 
+      `<div class="card bg-dark justify-content-center align-items-center" style="width: 14rem;">
+         <div class="col card-header">
+           <h4>${name}</h4>
+       </div>
+         <div class="col card-header">
+          <h4>Engineer</h4>
+       </div>
+       <ul class="list-group list-group-flush text">
+           <li class="list-group-item">ID: ${id}</li>
+           <li class="list-group-item">Email: ${email}</li>
+           <li class="list-group-item">GitHub: ${gitHub}</li>
+       </ul>
+       </div>`;  
   
-  const name = "Orsha";
-  const id = "5111";
-  const email = "orunner@gmail.com";
-  const gitHub = "Orunnergit";
-  const school = "BS";
- // const officenumber = "5555555";
-  
-  function engineerHtml(name, id, email, gitHub){  
-    let engineerData = `<div class="col-6">
-    <div class="card mx-auto mb-3" style="width: 18rem">
-    <h5 class="card-header">${name}<br /><br />Engineer</h5>
-      <ul class="list-group list-group-flush">
-         <li class="list-group-item">ID: ${id}</li>
-         <li class="list-group-item">Email Address: ${email}</li>
-         <li class="list-group-item">GitHub: ${gitHub}</li>
-      </ul>
-     </div>
-    </div>`;
-  
-  fs.appendFile("teamOrsha.html", engineerData, function(err) {
+   fs.appendFile("index.html", engineerData, function(err) {
        if (err) {
          console.log(err);
        }
    });
   }
-  //engineerHtml(name, id, email, gitHub);
 
 
-function internHtml(name, id, email, school){  
-    let internData =`<div class="col-6">
-      <div class="card mx-auto mb-3" style="width: 18rem">
-      <h5 class="card-header">${name}<br /><br />Intern</h5>
-        <ul class="list-group list-group-flush">
-           <li class="list-group-item">ID: ${id}</li>
-           <li class="list-group-item">Email Address: ${email}</li>
-           <li class="list-group-item">School: ${school}</li>
-        </ul>
-      </div>
-    </div>`;
+function internHtml(name, id, email, school) {  
+    let internData =
+    `<div class="card bg-dark justify-content-center align-items-center" style="width: 14rem;">
+       <div class="col card-header">
+         <h4>${name}</h4>
+       </div>
+       <div class="col card-header">
+          <h4>Intern</h4>
+       </div>
+       <ul class="list-group list-group-flush text">
+          <li class="list-group-item">ID: ${id}</li>
+          <li class="list-group-item">Email: ${email}</li>
+          <li class="list-group-item">School Name: ${school}</li>
+       </ul>
+    </div>`;  
 
-    fs.appendFile("teamOrsha.html", internData, function(err) {
+    fs.appendFile("index.html", internData, function(err) {
       if (err) {
       console.log(err);
      }
     });
 }
-//internHtml(name,id,email,school);
 
-function managerHtml(name, id, email, officenumber){  
-     let managerData =`<div class="col-6">
-       <div class="card mx-auto mb-3" style="width: 18rem">
-       <h5 class="card-header">${name}<br /><br />Manager</h5>
-         <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email Address: ${email}</li>
-            <li class="list-group-item">Office Number: ${officenumber}</li>
-         </ul>
+function managerHtml(name, id, email, officenumber) {  
+     let managerData =
+     `<div class="card bg-dark justify-content-center align-items-center" style="width: 14rem;">
+         <div class="col card-header">
+           <h4>${name}</h4>
        </div>
-     </div>`;
+         <div class="col card-header">
+          <h4>Manager</h4>
+       </div>
+       <ul class="list-group list-group-flush text">
+           <li class="list-group-item">ID: ${id}</li>
+           <li class="list-group-item">Email: ${email}</li>
+           <li class="list-group-item">Office Number: ${officenumber}</li>
+       </ul>
+       </div>`;  
 
-     fs.appendFile("teamOrsha.html", managerData, function(err) {
+     fs.appendFile("index.html", managerData, function(err) {
        if (err) {
        console.log(err);
        }
       });
 }
-//managerHtml(name, id, email, officenumber);
 
-function addcardHtml(team) {
+
+
    
-   //team.forEach(function (member) {
+  
     
-   //const name = member.getName();
-   // const id = member.getId();
-   // const email = member.getEmail();
-   // const role = member.getRole();
+  
    
    
   
-   let data = "testing let data =";
-   let i = 0; 
    
-   while(i <team.length){
+   
+   
  
 
-   if (role === "Engineer") {
-        //const gitHub = member.getGithub();
-        data = `<div class="col-6">
-        <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Engineer</h5>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email Address: ${email}</li>
-            <li class="list-group-item">GitHub: ${gitHub}</li>
-        </ul>
-        </div>
-    </div>`;
-    } else if (role === "Intern") {
-      //  const school = member.getSchool();
-        data = `<div class="col-6">
-        <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Intern</h5>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email Address: ${email}</li>
-            <li class="list-group-item">School: ${school}</li>
-        </ul>
-        </div>
-    </div>`;
-    } else {
-       // const officePhone = member.getOfficeNumber();
-        data = `<div class="col-6">
-        <div class="card mx-auto mb-3" style="width: 18rem">
-        <h5 class="card-header">${name}<br /><br />Manager</h5>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email Address: ${email}</li>
-            <li class="list-group-item">Office Phone: ${officePhone}</li>
-        </ul>
-        </div>
-    </div>`
-    }
-   
-   // fs.writeFile("teamOrsha.html", data, function(err) {
-     
-    //  if (err) {
-    //    console.log(err);
-    //  }
-   //   else {
-   //     console.log(writefailed);
-   //   }
-  // }) 
-} // while loop
 
-
-}
-
-//addcardHtml(team);
 
 
 
